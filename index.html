@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Form and Image Show/Hide</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="form-container">
+    <form id="myForm">
+      <h2>Course Registration</h2>
+
+      <label>Full Name:</label><br>
+      <input type="text" id="fullName" required><br><br>
+
+      <label>Email:</label><br>
+      <input type="email" id="email" required><br><br>
+
+      <label>Age:</label><br>
+      <input type="number" id="age" required><br><br>
+
+      <label>Select Course:</label><br>
+      <select id="course">
+        <option value="">--Choose a course--</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="javascript">JavaScript</option>
+      </select><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <br><hr><br>
+
+  <!-- Image Show/Hide Section -->
+  <div class="image-buttons">
+    <button onclick="showImage()">Show Image</button>
+    <button onclick="hideImage()">Hide Image</button>
+  </div>
+
+  <div id="imageBox" style="display:none;">
+    <img src="https://via.placeholder.com/300" alt="Example" class="framed-img">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
