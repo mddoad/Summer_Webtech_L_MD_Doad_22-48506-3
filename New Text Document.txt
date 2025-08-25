@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PHP Form Validation</title>
+</head>
+<body>
+ 
+<?php
+$name = $email = $website = $comment = $gender = "";
+$nameErr = $emailErr = $websiteErr = $genderErr = "";
+ 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ 
+  // Name
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } elseif (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
+    $nameErr = "Only letters and spaces allowed";
+  } else {
+    $name = $_POST["name"];
+  }
+ 
+  // Email
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    $emailErr = "Invalid email format";
+  } else {
+    $email = $_POST["email"];
+  }
+ 
+  // Website (optional)
+  if (!empty($_POST["website"])) {
+    if (!filter_var($_POST["website"], FILTER_VALIDATE_URL)) {
+      $websiteErr = "Invalid URL";
+    } else {
+      $website = $_POST["website"];
+    }
+  }
+ 
+  // Comment (optional)
+  if (!empty($_POST["comment"])) {
+    $comment = $_POST["comment"];
+  }
+ 
+  // Gender
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = $_POST["gender"];
+  }
+}
+?>
+ 
+<h2>Simple Form Validation</h2>
+<form method="post" action="">
+  Name: <input type="text" name="name" value="";> 
+  <span style="color:red"><?php echo $nameErr; ?></span>
+  <br><br>
+ 
+  Email: <input type="text" name="email" value="";>
+  <span style="color:red"><?php echo $emailErr; ?></span>
+  <br><br>
+ 
+  Website: <input type="text" name="website" value="";>
+  <span style="color:red"><?php echo $websiteErr; ?></span>
+  <br><br>
+ 
+  Comment: <br>
+  <textarea name="comment" rows="4" cols="40"></textarea>
+  <br><br>
+ 
+  Gender:
+  <input type="radio" name="gender" value="Male" <?php if($gender=="Male") echo "checked"; ?>> Male
+  <input type="radio" name="gender" value="Female" <?php if($gender=="Female") echo "checked"; ?>> Female
+  <input type="radio" name="gender" value="Other" <?php if($gender=="Other") echo "checked"; ?>> Other
+  <span style="color:red"><?php echo $genderErr; ?></span>
+  <br><br>
+ 
+  <input type="submit" value="Submit">
+</form>
+ 
+<?php
+// Show results if all required fields are valid
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !$nameErr && !$emailErr && !$websiteErr && !$genderErr) {
+  echo "<h3>Your Input</h3>";
+  echo "Name: $name <br>";
+  echo "Email: $email <br>";
+  echo "Website: $website <br>";
+  echo "Comment: $comment <br>";
+  echo "Gender: $gender <br>";
+}
+?>
+ 
+</body>
+</html>
